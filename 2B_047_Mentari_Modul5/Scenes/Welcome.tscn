@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/welcome.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bg_main.png" type="Texture" id=2]
+
+[node name="Welcome" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Main" type="TextureRect" parent="CanvasLayer"]
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 724.0
+margin_bottom = 474.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="2D" type="TextureButton" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Animasi" type="TextureButton" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="About" type="TextureButton" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Exit" type="TextureButton" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0

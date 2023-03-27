@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/karya5.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Karya5_btn.gd" type="Script" id=2]
+
+[node name="Karya5" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="KaryaLayer" type="CanvasLayer" parent="."]
+
+[node name="Objek" type="Node2D" parent="KaryaLayer"]
+script = ExtResource( 1 )
+
+[node name="Objek2" type="Node2D" parent="KaryaLayer"]
+script = ExtResource( 1 )
+
+[node name="Objek3" type="Node2D" parent="KaryaLayer"]
+script = ExtResource( 1 )
+
+[node name="Objek4" type="Node2D" parent="KaryaLayer"]
+script = ExtResource( 1 )
+
+[node name="BtnNext" type="Button" parent="KaryaLayer"]
+margin_left = 669.0
+margin_top = -2.0
+margin_right = 711.0
+margin_bottom = 18.0
+text = "Next"
+script = ExtResource( 2 )
+
+[node name="BtnBack" type="Button" parent="KaryaLayer"]
+margin_left = 651.0
+margin_top = 361.0
+margin_right = 693.0
+margin_bottom = 381.0
+text = "Back"
+script = ExtResource( 2 )
+
+[node name="BtnPrev" type="Button" parent="KaryaLayer"]
+margin_left = 11.0
+margin_right = 51.0
+margin_bottom = 20.0
+text = "Prev"
+script = ExtResource( 2 )
+
+[connection signal="draw" from="KaryaLayer/Objek" to="KaryaLayer/Objek" method="_draw_objek_1"]
+[connection signal="draw" from="KaryaLayer/Objek2" to="KaryaLayer/Objek2" method="_draw_objek_2"]
+[connection signal="draw" from="KaryaLayer/Objek3" to="KaryaLayer/Objek3" method="_draw_game"]
+[connection signal="draw" from="KaryaLayer/Objek4" to="KaryaLayer/Objek4" method="_draw_objek_4"]

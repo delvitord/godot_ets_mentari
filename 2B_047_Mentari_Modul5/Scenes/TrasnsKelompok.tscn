@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="Kelompok" type="Node2D"]
+
+[node name="KaryaLayer" type="CanvasLayer" parent="."]
+
+[node name="persegi" type="Node2D" parent="KaryaLayer"]

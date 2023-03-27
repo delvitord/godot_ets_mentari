@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/quis_btn.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/quiz_shalat.gd" type="Script" id=2]
+[ext_resource path="res://Assets/bg_an.png" type="Texture" id=3]
+
+[node name="Quiz_Shalat" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="karyaLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="karyaLayer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 3 )
+
+[node name="Jam" type="Node2D" parent="karyaLayer"]
+script = ExtResource( 2 )
+
+[node name="BtnBack" type="Button" parent="karyaLayer"]
+margin_left = 115.0
+margin_top = 80.0
+margin_right = 157.0
+margin_bottom = 100.0
+text = "Back"
+script = ExtResource( 1 )
+
+[connection signal="draw" from="karyaLayer/Jam" to="karyaLayer/Jam" method="_draw_waktuShalat"]
+[connection signal="pressed" from="karyaLayer/BtnBack" to="karyaLayer/BtnBack" method="_on_BtnBack_pressed"]
