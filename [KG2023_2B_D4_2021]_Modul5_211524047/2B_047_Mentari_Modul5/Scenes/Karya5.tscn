@@ -1,0 +1,207 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var Primitif = primitif.new()
+var Dasar = dasar.new()
+var Circle = dasar.new()
+var Trans = trans.new()
+var Aini = transformasi.new()
+
+var screen_width = OS.window_size.x 
+var screen_height = OS.window_size.y
+
+const margin_left = 50
+const margin_top  = 50
+var margin_right = screen_width - margin_left
+var margin_bottom = screen_height - margin_top
+
+func _ready():
+	var KL_Objek_3 = $\"/root/Karya5/KaryaLayer/Objek3\"
+	KL_Objek_3.visible = true
+	
+
+func _draw_game():
+	var res = PoolVector2Array()
+	var resOri = PoolVector2Array()
+	
+	var game = Dasar.persegipanjang(1,1,150,250,margin_left, margin_top)
+	put_pixel_all(game, Color(\"#ff0000\"))
+	
+	game = Dasar.persegipanjang(25, 150, 100, 80, margin_left, margin_top)
+	put_pixel_all(game, Color(\"#ff0000\"))
+	
+	game = Dasar.circle(165, 355, 22)
+	put_pixel_all(game, Color(\"#ff0000\"))
+	
+	res.append_array(Dasar.circle(90, 340, 10))
+	resOri = Dasar.circle(90, 340, 10)
+	var trs = Trans.translate2(0,30)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	trs = Trans.translate2(-20,-15)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	trs = Trans.translate2(40,0)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	put_pixel_all(res,Color.aquamarine)
+	
+	#tetris Z (translasi)
+	res.append_array(Dasar.persegi(85, 162, 10, margin_left, margin_top))
+	resOri = Dasar.persegi(85,162,10, margin_left, margin_top)
+	trs = Trans.translate2(10,0)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	trs = Trans.translate2(0,10)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	trs = Trans.translate2(10, 0)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	put_pixel_all(res,Color.aqua)
+	#kotak 4 (translasi)
+	res.append_array(Dasar.persegi(115,125,10, margin_left, margin_top))
+	resOri = Dasar.persegi(115,125,10, margin_left, margin_top)
+	for i in 3: 
+		trs = Trans.translate2(-30,0)
+		resOri = Trans.transformPoints2(resOri, trs)
+		res.append_array(resOri)
+		put_pixel_all(res,Color.aqua)
+	
+	
+	
+	#tetris L (translasi)
+	res.append_array(Dasar.persegi(30,152,10, margin_left, margin_top))
+	resOri = Dasar.persegi(30,152,10, margin_left, margin_top)
+	for i in 2:
+		trs = Trans.translate2(10,0)
+		resOri = Trans.transformPoints2(resOri, trs)
+		res.append_array(resOri)
+	trs = Trans.translate2(0,-10)
+	resOri = Trans.transformPoints2(resOri, trs)
+	res.append_array(resOri)
+	
+	#tetris l (2 translasi)
+	res.append_array(Dasar.persegi(62,182,10, margin_left, margin_top))
+	resOri = Dasar.persegi(62,182,10, margin_left, margin_top)
+	for i in 3:
+		trs = Trans.translate2(0,10)
+		resOri = Trans.transformPoints2(resOri, trs)
+		res.append_array(resOri)
+		put_pixel_all(res,Color.aqua)	
+	res.append_array(Dasar.persegi(102,192,10, margin_left, margin_top))
+	resOri = Dasar.persegi(102,192,10, margin_left, margin_top)
+	for i in 2:
+		trs = Trans.translate2(0,-10)
+		resOri = Trans.transformPoints2(resOri, trs)
+		res.append_array(resOri)		
+		put_pixel_all(res,Color.aqua)
+
+func put_pixel(x, y, color=Color(\"007fff\")):
+	draw_primitive(PoolVector2Array([Vector2(x, y)]),
+		PoolColorArray([color]),
+		PoolVector2Array())
+
+func put_pixel_all(dot: PoolVector2Array, color):
+	for i in dot.size():
+		put_pixel(dot[i].x, dot[i].y, color)
+
+func _on_BtnBack_pressed():
+	get_tree().change_scene(\"res://Scenes/Welcome.tscn\")
+
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+onready var KL_Objek_1 = $\"/root/Karya5/KaryaLayer/Objek_1\"
+onready var KL_Objek_2 = $\"/root/Karya5/KaryaLayer/Objek_2\"
+onready var KL_Game = $\"/root/Karya5/KaryaLayer/game\"
+onready var KL_Objek_4 = $\"/root/Karya5/KaryaLayer/Objek_4\"
+onready var KL_Objek_5 = $\"/root/Karya5/KaryaLayer/Objek_5\"
+onready var KL_Objek_6 = $\"/root/Karya5/KaryaLayer/Objek_6\"
+onready var KL_Objek_7 = $\"/root/Karya5/KaryaLayer/Objek_7\"
+onready var KL_Objek_8 = $\"/root/Karya5/KaryaLayer/Objek_8\"
+
+func _on_Button_Next_pressed():
+	if(KL_Objek_1.visible == true):
+		KL_Objek_1.visible = !KL_Objek_1.visible
+		KL_Objek_2.visible = !KL_Objek_2.visible
+	elif(KL_Objek_2.visible == true):
+		KL_Objek_2.visible = !KL_Objek_2.visible
+		KL_Game.visible = !KL_Game.visible
+	elif(KL_Game.visible == true):
+		KL_Game.visible = !KL_Game.visible
+		KL_Objek_4.visible = !KL_Objek_4.visible
+	elif(KL_Objek_4.visible == true):
+		KL_Objek_4.visible = !KL_Objek_4.visible
+		KL_Objek_1.visible = !KL_Objek_1.visible
+
+
+
+func _on_Button_Back_pressed():
+	get_tree().change_scene(\"res://Scenes/Welcome.tscn\")
+
+
+func _on_Button_Prev_pressed():
+	if(KL_Objek_1.visible == true):
+		KL_Objek_1.visible = !KL_Objek_1.visible
+		KL_Objek_4.visible = !KL_Objek_4.visible
+	elif(KL_Objek_4.visible == true):
+		KL_Objek_4.visible = !KL_Objek_4.visible
+		KL_Game.visible = !KL_Game.visible
+	elif(KL_Game.visible == true):
+		KL_Game.visible = !KL_Game.visible
+		KL_Objek_2.visible = !KL_Objek_2.visible
+	elif(KL_Objek_2.visible == true):
+		KL_Objek_2.visible = !KL_Objek_2.visible
+		KL_Objek_1.visible = !KL_Objek_1.visible
+	
+"
+
+[node name="Karya5" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="KaryaLayer" type="CanvasLayer" parent="."]
+
+[node name="Objek" type="Node2D" parent="KaryaLayer"]
+script = SubResource( 1 )
+
+[node name="Objek2" type="Node2D" parent="KaryaLayer"]
+script = SubResource( 1 )
+
+[node name="Objek3" type="Node2D" parent="KaryaLayer"]
+script = SubResource( 1 )
+
+[node name="Objek4" type="Node2D" parent="KaryaLayer"]
+script = SubResource( 1 )
+
+[node name="BtnNext" type="Button" parent="KaryaLayer"]
+margin_left = 669.0
+margin_top = -2.0
+margin_right = 711.0
+margin_bottom = 18.0
+text = "Next"
+script = SubResource( 2 )
+
+[node name="BtnBack" type="Button" parent="KaryaLayer"]
+margin_left = 651.0
+margin_top = 361.0
+margin_right = 693.0
+margin_bottom = 381.0
+text = "Back"
+script = SubResource( 2 )
+
+[node name="BtnPrev" type="Button" parent="KaryaLayer"]
+margin_left = 11.0
+margin_right = 51.0
+margin_bottom = 20.0
+text = "Prev"
+script = SubResource( 2 )
+
+[connection signal="draw" from="KaryaLayer/Objek" to="KaryaLayer/Objek" method="_draw_objek_1"]
+[connection signal="draw" from="KaryaLayer/Objek2" to="KaryaLayer/Objek2" method="_draw_objek_2"]
+[connection signal="draw" from="KaryaLayer/Objek3" to="KaryaLayer/Objek3" method="_draw_game"]
+[connection signal="draw" from="KaryaLayer/Objek4" to="KaryaLayer/Objek4" method="_draw_objek_4"]

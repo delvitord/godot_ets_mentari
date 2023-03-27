@@ -1,0 +1,60 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "primitif",
+"class": "dasar",
+"language": "GDScript",
+"path": "res://Scripts/dasar.gd"
+}, {
+"base": "Reference",
+"class": "primitif",
+"language": "GDScript",
+"path": "res://Scripts/primitif.gd"
+}, {
+"base": "Reference",
+"class": "trans",
+"language": "GDScript",
+"path": "res://Scripts/trans.gd"
+}, {
+"base": "Reference",
+"class": "transformasi",
+"language": "GDScript",
+"path": "res://Scripts/transformasi.gd"
+} ]
+_global_script_class_icons={
+"dasar": "",
+"primitif": "",
+"trans": "",
+"transformasi": ""
+}
+
+[application]
+
+config/name="2B_047_Mentari_Modul5"
+run/main_scene="res://Scenes/Welcome.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=720
+window/size/height=480
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
