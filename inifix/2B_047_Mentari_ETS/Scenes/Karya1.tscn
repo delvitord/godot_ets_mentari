@@ -1,0 +1,258 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var Primitif = primitif.new()
+
+export var margin_left = 50
+export var margin_top  = 50
+var x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+func _ready():
+	var KL_FnLinear = $\"/root/Karya1/KaryaLayer/FnLinear\"
+	KL_FnLinear.visible = true
+	update()
+
+func _draw_linear():
+	#kiri atas standar
+	var res = Primitif.lineDDA(420, 100, 70, 200)
+	put_pixel_all(res,Color(\"#ff0000\"))
+	res = Primitif.lineDDA(420, 105, 70, 205)
+	put_pixel_all(res,Color(\"#f6ff00\"))
+	res = Primitif.lineDDA(420, 110, 70, 210)
+	put_pixel_all(res,Color(\"#00ff22\"))
+	res = Primitif.lineDDA(420, 115, 70, 215)
+	put_pixel_all(res,Color(\"#00e5ff\"))
+	res = Primitif.lineDDA(420, 120, 70, 220)
+	put_pixel_all(res,Color(\"#f700ff\"))
+	
+	#kanan atas 
+	res = Primitif.lineDDA(450, 100, 771, 200)
+	put_pixel_all(Primitif.line_style(res, 2, 3),(\"#ff0000\"))
+	res = Primitif.lineDDA(450, 105, 771, 205)
+	put_pixel_all(Primitif.line_style(res, 2, 3),(\"#f6ff00\"))
+	res = Primitif.lineDDA(450, 110, 771, 210)
+	put_pixel_all(Primitif.line_style(res, 2, 3),(\"#00ff22\"))
+	res = Primitif.lineDDA(450, 115, 771, 215)
+	put_pixel_all(Primitif.line_style(res, 2, 3),(\"#00e5ff\"))
+	res = Primitif.lineDDA(450, 120, 771, 220)
+	put_pixel_all(Primitif.line_style(res, 2, 3),(\"#f700ff\"))
+	
+	#kanan bawah
+	res = Primitif.lineDDA(450, 420, 771, 320)
+	put_pixel_all(Primitif.line_style(res, 2, 0.5),(\"#ff0000\"))
+	res = Primitif.lineDDA(450, 415, 771, 315)
+	put_pixel_all(Primitif.line_style(res, 2, 0.5),(\"#f6ff00\"))
+	res = Primitif.lineDDA(450, 410, 771, 310)
+	put_pixel_all(Primitif.line_style(res, 2, 0.5),(\"#00ff22\"))
+	res = Primitif.lineDDA(450, 405, 771, 305)
+	put_pixel_all(Primitif.line_style(res, 2, 0.5),(\"#00e5ff\"))
+	res = Primitif.lineDDA(450, 400, 771, 300)
+	put_pixel_all(Primitif.line_style(res, 2, 0.5),(\"#f700ff\"))
+	
+	#kiri bawah
+	res = Primitif.lineDDA(420, 420, 70, 320)
+	put_pixel_all(Primitif.line_style(res, 1, 3),(\"#ff0000\"))
+	res = Primitif.lineDDA(420, 415, 70, 315)
+	put_pixel_all(Primitif.line_style(res, 1, 3),(\"#f6ff00\"))
+	res = Primitif.lineDDA(420, 410, 70, 310)
+	put_pixel_all(Primitif.line_style(res, 1, 3),(\"#00ff22\"))
+	res = Primitif.lineDDA(420, 405, 70, 305)
+	put_pixel_all(Primitif.line_style(res, 1, 3),(\"#00e5ff\"))
+	res = Primitif.lineDDA(420, 400, 70, 300)
+	put_pixel_all(Primitif.line_style(res, 1, 3),(\"#f700ff\"))
+	
+
+	
+	
+func _draw_kubik():
+	var y = []
+	for i in range(10):
+		y.append(pow(i,3)-2*i+5)
+
+	var res = PoolVector2Array()
+	for i in range(9):
+		var px = Primitif.convert_to_kartesian(x[i], y[i], x[i+1], y[i+1], margin_left, margin_top)
+		print(px)
+		res.append_array(Primitif.lineMidpoint(px[0], px[1], px[2], px[3]))
+	
+	put_pixel_all(res,Color(\"#32CD30\"))
+	print(\"Persamaan Garis Kubik\")
+
+func _draw_margin():
+	var res = Primitif.drawMargin(margin_top, OS.window_size.x-margin_left, OS.window_size.y-margin_top, margin_left)
+	put_pixel_all(res,Color(\"#32CD30\"))
+	
+func _draw_grid():
+	var res = Primitif.drawGrid(margin_top, OS.window_size.x-margin_left, OS.window_size.y-margin_top, margin_left)
+	put_pixel_all(res,Color(\"#3e433f\"))
+	
+func _draw_kartesian():
+	var res = Primitif.drawKartesian(margin_top, OS.window_size.x-margin_left, OS.window_size.y-margin_top, margin_left)
+	put_pixel_all(res,Color(\"#E51616\"))
+
+
+func put_pixel(x, y, color=Color(\"007fff\")):
+	draw_primitive(PoolVector2Array([Vector2(x, y)]),
+		PoolColorArray([color]),
+		PoolVector2Array())
+
+func put_pixel_all(dot: PoolVector2Array, color):
+	for i in dot.size():
+		put_pixel(dot[i].x, dot[i].y, color)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+onready var KL_FnLinear = $\"/root/Karya1/KaryaLayer/FnLinear\"
+
+onready var KL_FnKuadratik = $\"/root/Karya1/KaryaLayer/FnKuadratik\"
+
+onready var KL_FnKubik = $\"/root/Karya1/KaryaLayer/FnKubik\"
+
+func _on_BtnBack_pressed():
+	get_tree().change_scene(\"res://Scenes/Welcome.tscn\")
+	if get_tree().change_scene(\"res://Scenes/Welcome.tscn\") != OK:
+		print(\"Scene Tidak Ada\")
+
+
+func _on_BtnNext_pressed():
+	if(KL_FnLinear.visible == true):
+		KL_FnLinear.visible = !KL_FnLinear.visible
+		KL_FnKuadratik.visible = !KL_FnKuadratik.visible
+	elif(KL_FnKuadratik.visible == true):
+		KL_FnKuadratik.visible = !KL_FnKuadratik.visible
+		KL_FnKubik.visible = !KL_FnKubik.visible
+	elif(KL_FnKubik.visible == true):
+		KL_FnKubik.visible = !KL_FnKubik.visible
+		KL_FnLinear.visible = !KL_FnLinear.visible
+
+func _on_BtnPrev_pressed():
+	if(KL_FnLinear.visible == true):
+		KL_FnLinear.visible = !KL_FnLinear.visible
+		KL_FnKubik.visible = !KL_FnKubik.visible
+	elif(KL_FnKuadratik.visible == true):
+		KL_FnKuadratik.visible = !KL_FnKuadratik.visible
+		KL_FnLinear.visible = !KL_FnLinear.visible
+	elif(KL_FnKubik.visible == true):
+		KL_FnKubik.visible = !KL_FnKubik.visible
+		KL_FnKuadratik.visible = !KL_FnKuadratik.visible
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends CheckButton
+
+onready var HL_Margin = $\"/root/Karya1/KaryaLayer/HelperLayer/Margin\"
+
+onready var HL_Grid = $\"/root/Karya1/KaryaLayer/HelperLayer/Grid\"
+
+onready var HL_Kartesian = $\"/root/Karya1/KaryaLayer/HelperLayer/Kartesian\"
+
+func _on_BtnMargin_visibility_pressed():
+	HL_Margin.visible = !HL_Margin.visible
+
+func _on_BtnGrid_visibility_pressed():
+	HL_Grid.visible = !HL_Grid.visible
+	
+func _on_BtnKartesian_visibility_pressed():
+	HL_Kartesian.visible = !HL_Kartesian.visible
+"
+
+[node name="Karya1" type="Node2D"]
+visible = false
+script = SubResource( 1 )
+
+[node name="KaryaLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="FnLinear" type="Node2D" parent="KaryaLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="FnKuadratik" type="Node2D" parent="KaryaLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="FnKubik" type="Node2D" parent="KaryaLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="FnAbsolute" type="Node2D" parent="KaryaLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="BtnNext" type="Button" parent="KaryaLayer"]
+margin_left = 678.0
+margin_top = 1.0
+margin_right = 720.0
+margin_bottom = 21.0
+text = "Next"
+script = SubResource( 2 )
+
+[node name="BtnPrev" type="Button" parent="KaryaLayer"]
+margin_top = 1.0
+margin_right = 40.0
+margin_bottom = 21.0
+text = "Prev"
+script = SubResource( 2 )
+
+[node name="HelperLayer" type="CanvasLayer" parent="KaryaLayer"]
+
+[node name="BtnMargin" type="CheckButton" parent="KaryaLayer/HelperLayer"]
+margin_top = 438.0
+margin_right = 76.0
+margin_bottom = 478.0
+text = "Margin"
+script = SubResource( 3 )
+
+[node name="BtnGrid" type="CheckButton" parent="KaryaLayer/HelperLayer"]
+margin_left = 123.0
+margin_top = 438.0
+margin_right = 230.0
+margin_bottom = 478.0
+text = "Grid"
+script = SubResource( 3 )
+
+[node name="BtnKartesian" type="CheckButton" parent="KaryaLayer/HelperLayer"]
+margin_left = 230.0
+margin_top = 438.0
+margin_right = 369.0
+margin_bottom = 478.0
+text = "Kartesian"
+script = SubResource( 3 )
+
+[node name="BtnBack" type="Button" parent="KaryaLayer/HelperLayer"]
+margin_left = 676.0
+margin_top = 449.0
+margin_right = 718.0
+margin_bottom = 469.0
+text = "Back"
+script = SubResource( 2 )
+
+[node name="Margin" type="Node2D" parent="KaryaLayer/HelperLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="Grid" type="Node2D" parent="KaryaLayer/HelperLayer"]
+visible = false
+script = SubResource( 1 )
+
+[node name="Kartesian" type="Node2D" parent="KaryaLayer/HelperLayer"]
+visible = false
+script = SubResource( 1 )
+
+[connection signal="draw" from="KaryaLayer/FnLinear" to="KaryaLayer/FnLinear" method="_draw_linear"]
+[connection signal="draw" from="KaryaLayer/FnKuadratik" to="KaryaLayer/FnKuadratik" method="_draw_kuadratik"]
+[connection signal="draw" from="KaryaLayer/FnKubik" to="KaryaLayer/FnKubik" method="_draw_kubik"]
+[connection signal="draw" from="KaryaLayer/FnAbsolute" to="KaryaLayer/FnAbsolute" method="_draw_absolute"]
+[connection signal="pressed" from="KaryaLayer/BtnNext" to="KaryaLayer/BtnNext" method="_on_BtnNext_pressed"]
+[connection signal="pressed" from="KaryaLayer/BtnPrev" to="KaryaLayer/BtnPrev" method="_on_BtnPrev_pressed"]
+[connection signal="pressed" from="KaryaLayer/HelperLayer/BtnMargin" to="KaryaLayer/HelperLayer/BtnMargin" method="_on_BtnMargin_visibility_pressed"]
+[connection signal="pressed" from="KaryaLayer/HelperLayer/BtnGrid" to="KaryaLayer/HelperLayer/BtnGrid" method="_on_BtnGrid_visibility_pressed"]
+[connection signal="pressed" from="KaryaLayer/HelperLayer/BtnKartesian" to="KaryaLayer/HelperLayer/BtnKartesian" method="_on_BtnKartesian_visibility_pressed"]
+[connection signal="pressed" from="KaryaLayer/HelperLayer/BtnBack" to="KaryaLayer/HelperLayer/BtnBack" method="_on_BtnBack_pressed"]
+[connection signal="draw" from="KaryaLayer/HelperLayer/Margin" to="KaryaLayer/HelperLayer/Margin" method="_draw_margin"]
+[connection signal="draw" from="KaryaLayer/HelperLayer/Grid" to="KaryaLayer/HelperLayer/Grid" method="_draw_grid"]
+[connection signal="draw" from="KaryaLayer/HelperLayer/Kartesian" to="KaryaLayer/HelperLayer/Kartesian" method="_draw_kartesian"]

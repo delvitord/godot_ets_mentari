@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/animasi.mp3-c5a187c23f6c8c4a34e853dda45837da.mp3str"
+
+[deps]
+
+source_file="res://Assets/sound/animasi.mp3"
+dest_files=[ "res://.import/animasi.mp3-c5a187c23f6c8c4a34e853dda45837da.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
